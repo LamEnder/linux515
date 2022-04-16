@@ -9,7 +9,7 @@ pkgname=('linux515' 'linux515-headers')
 _kernelname=-MANJARO
 _basekernel=5.15
 _basever=515
-pkgver=5.15.28
+pkgver=5.15.34
 pkgrel=1
 arch=('x86_64')
 url="https://www.kernel.org/"
@@ -47,6 +47,8 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar.x
         # Lenovo + AMD
         '0201-lenovo-wmi2.patch'
         # other patches
+        "0202-mt76-mt7921-add-support-for-PCIe-ID-0x7922-0x0608-0x0616.patch"
+        "0203_mt76_mt7921_reduce_log_severity_levels_for_informative_messages.patch"
         # Bootsplash
         '0301-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch'        
         '0302-revert-fbcon-remove-no-op-fbcon_set_origin.patch'
@@ -65,7 +67,7 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar.x
         '0412-bootsplash.patch'
         '0413-bootsplash.gitpatch')
 sha256sums=('57b2cf6991910e3b67a1b3490022e8a0674b6965c74c12da1e99d138d1991ee8'
-            '1019709aa85b87904e901aca141f8ade27b3719333be8a3e9d3b2cb0e05ad345'
+            'b1a34733513b1080e763532101def34af73b4ca5e4f9b442c3e7d378a1598088'
             '15caed316b86dad46e6c41fa6c31691131a9184b463c91e6b5a378824367b0c2'
             '986f8d802f37b72a54256f0ab84da83cb229388d58c0b6750f7c770818a18421'
             'e2823eff3355b7c88a3fa327ea2f84f23cbd36569e0a5f0f76599023f63a52ca'
@@ -79,6 +81,8 @@ sha256sums=('57b2cf6991910e3b67a1b3490022e8a0674b6965c74c12da1e99d138d1991ee8'
             '5e804e1f241ce542f3f0e83d274ede6aa4b0539e510fb9376f8106e8732ce69b'
             'e8e6120035977903a7117ba215809b9b162b64a789848107513f219180baaada'
             '1d58ef2991c625f6f0eb33b4cb8303932f53f1c4694e42bae24c9cd36d2ad013'
+            '04fd3142561aa3cd7f4e469099ae294b47b02f4a5b344ff7c813d8593eb634d8'
+            'f8fc51c0c644ae743154c37b77ade50fa5a950980c9dd56d8752e4d6b5dfb153'
             '2b11905b63b05b25807dd64757c779da74dd4c37e36d3f7a46485b1ee5a9d326'
             '94a8538251ad148f1025cc3de446ce64f73dc32b01815426fb159c722e8fa5bc'
             '1f18c5c10a3c63e41ecd05ad34cd9f6653ba96e9f1049ce2b7bb6da2578ae710'
@@ -147,7 +151,7 @@ build() {
 package_linux515() {
   pkgdesc="The ${pkgbase/linux/Linux} kernel and modules"
   depends=('coreutils' 'linux-firmware' 'kmod' 'mkinitcpio>=27')
-  optdepends=('crda: to set the correct wireless channels of your country')
+  optdepends=('wireless-regdb: to set the correct wireless channels of your country')
   provides=("linux=${pkgver}" VIRTUALBOX-GUEST-MODULES WIREGUARD-MODULE)
 
   cd "linux-${_basekernel}"
